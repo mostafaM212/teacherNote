@@ -1,0 +1,89 @@
+.group-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  flex-direction: column;
+}
+
+.list-container {
+  display: grid;
+  width: 80%;
+  grid-template-columns: 10% 80% 10%;
+  grid-column-gap: 10px;
+}
+
+.stage {
+  font-weight: bold;
+  color: #ccc;
+}
+
+.card {
+  width: 100%;
+  // height: 150px;
+}
+
+.flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  width: 100%;
+}
+
+.flex1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blue {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+table {
+  margin-top: 20px;
+  width: 80%;
+}
+
+.list-container2 {
+  display: grid;
+  width: 90%;
+  grid-template-columns: 5% 90% 5%;
+  grid-column-gap: 10px;
+}
+
+.table-header {
+  background-color: #ccc;
+}
+
+// td:hover {
+//   background-color: whitesmoke;
+//   cursor: pointer;
+// }
+tr[mat-header-row] {
+  background-color: whitesmoke;
+}
+
+tr[mat-row]:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+table {
+  border-radius: 10px;
+}

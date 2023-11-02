@@ -1,0 +1,50 @@
+<div class="loginContainer">
+    <div class="viewContainer">
+        <div class="formContainer">
+            <mat-card>
+                <form [formGroup]="loginForm">
+                    <mat-card-header class="flex" style="flex-direction: column;">
+                        <!-- <mat-card-title>Actions Buttons</mat-card-title>
+                    <mat-card-subtitle>Start</mat-card-subtitle> -->
+                        <img src="../../../assets/logos/دفتر الاستاذ-logos_transparent2.png" class="logo" alt="" srcset="">
+                        <h2 class="title">تسجيل الدخول</h2>
+                    </mat-card-header>
+                    <mat-card-content>
+
+                        <div class="example-full-width">
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>البريد الالكترونى</mat-label>
+                                <!-- <span matPrefix>+1 &nbsp;</span> -->
+                                <input type="email" matInput placeholder="example@web.com" formControlName="email">
+                                <mat-icon matSuffix>mail</mat-icon>
+                                <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="example-full-width">
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>كلمه المرور</mat-label>
+                                <input matInput type="password" #password placeholder="*********" formControlName="password">
+                                <button class="icon" [disabled]="!password.value" matSuffix mat-icon-button aria-label="Clear" (click)="password.value=''">
+                            <mat-icon >close</mat-icon>
+                          </button>
+                                <mat-error class="dark">يلزم ادخال 6 احرف على الاقل</mat-error>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="flex" style="justify-content: flex-start;">
+                            <a [routerLink]="['/auth' , 'register']" class="link">لا امتلك بريد الكترونى</a>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions class="flex ">
+                        <button mat-raised-button type="submit" (click)="save()" class="dark"> تسجيل دخول</button>
+
+                    </mat-card-actions>
+                </form>
+            </mat-card>
+        </div>
+        <div class="logoContainer">
+            <img src="../../../assets//images/49065350.jpg" class="img" alt="" srcset="">
+        </div>
+    </div>
+
+</div>

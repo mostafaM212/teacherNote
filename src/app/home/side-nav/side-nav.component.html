@@ -1,0 +1,17 @@
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="over">
+        <div class="example-sidenav">
+            <img src="../../../assets/logos/دفتر الاستاذ-logos_transparent1.png" style="width: 70px;height: 70px;" srcset="">
+        </div>
+        <div class="flex">
+            <button mat-button class="nav-button" [routerLink]="['group']" routerLinkActive="active">
+            <mat-icon>group</mat-icon>
+            <span>المجموعات</span>
+          </button>
+        </div>
+    </mat-drawer>
+
+    <ng-content></ng-content>
+
+
+</mat-drawer-container>

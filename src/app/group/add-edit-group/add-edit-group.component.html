@@ -1,0 +1,100 @@
+<div class="loginContainer">
+    <div class="viewContainer">
+        <div class="formContainer">
+            <mat-card>
+                <form [formGroup]="groupForm">
+                    <mat-card-header class="flex" style="flex-direction: column;padding: 0px;">
+                        <!-- <mat-card-title>Actions Buttons</mat-card-title>
+                <mat-card-subtitle>Start</mat-card-subtitle> -->
+                        <!-- <img src="../../../assets/logos/دفتر الاستاذ-logos_transparent2.png" class="logo" alt="" srcset=""> -->
+                        <!-- <h6 class="title">معلم جديد</h6> -->
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="content">
+                            <h1 class="dark">مجموعه جديده</h1>
+                        </div>
+                        <div class="example-full-width">
+                            <div class="inline-flex">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>اسم المجموعه</mat-label>
+                                    <!-- <span matPrefix>+1 &nbsp;</span> -->
+                                    <input type="text" matInput placeholder="الاسم" formControlName="name">
+                                    <mat-icon matSuffix>person</mat-icon>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>المرحله</mat-label>
+
+                                    <mat-select formControlName="stage">
+                                        <mat-option *ngFor="let stage of stages" [value]="stage">{{stage}}</mat-option>
+                                    </mat-select>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="example-full-width">
+                            <div class="inline-flex">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>النوع</mat-label>
+                                    <mat-select formControlName="gender">
+                                        <mat-option [value]="'Male'">رجل</mat-option>
+                                        <mat-option [value]="'Female'">أنثى</mat-option>
+                                    </mat-select>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>مده المجموعه</mat-label>
+                                    <!-- <span matPrefix>+1 &nbsp;</span> -->
+                                    <input type="number" matInput placeholder="المده" min="1" max="24" formControlName="period">
+                                    <mat-icon matSuffix>timer</mat-icon>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="example-full-width">
+
+                            <div class="content">
+                                <button mat-icon-button matTooltip="أضافه موعد" type="button" (click)="addAppointment()" class="dark">
+                                <mat-icon>add</mat-icon>
+                              </button>
+                            </div>
+
+                        </div>
+                        <div class="example-full-width" formArrayName="appointments" *ngFor="let appointment of appointments.controls ;let i = index">
+                            <div class="inline-flex" [formGroupName]="i">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>اليوم</mat-label>
+                                    <mat-select formControlName="day">
+                                        <mat-option *ngFor="let day of days" [value]="day.value">{{day.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label> التوقيت</mat-label>
+                                    <input matTimepicker class="date" #t="matTimepicker" formControlName="time" [strict]="false" [id]="'timepicker-example'+ i" mode="24h">
+                                    <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+
+                                </mat-form-field>
+
+                                <button mat-icon-button matTooltip="حذف موعد" type="button" (click)="removeAppointment(i)" class="dark">
+                                  <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </mat-card-content>
+                    <mat-card-actions class="flex ">
+                        <button mat-raised-button type="submit" (click)="save()" class="dark"> اضافه مجموعه </button>
+
+
+                    </mat-card-actions>
+                </form>
+            </mat-card>
+        </div>
+        <div class="logoContainer">
+            <img src="../../../assets//images/49065315.jpg" class="img" alt="" srcset="">
+        </div>
+    </div>
+
+</div>

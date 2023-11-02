@@ -1,0 +1,18 @@
+<mat-toolbar dir="rtl">
+
+    <img src="../../../assets/logos/دفتر الاستاذ-logos_transparent1.png" [routerLink]="['/']" style="width: 70px;height: 70px;" srcset="">
+    <span class="example-spacer"></span>
+    <button mat-button *ngIf="authService.isAuthenticated$.getValue()" [mat-menu-trigger-for]="menu" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <div class="favorite-icon">
+        <img [src]="authService.user$.getValue()?.photo" alt="" class="img">
+        <span style="padding-bottom: 0px;">{{authService.user$.getValue()?.name}}</span>
+      </div>
+    </button>
+    <mat-menu #menu>
+        <button mat-menu-item [routerLink]="['/group' , 'add']"><mat-icon>add</mat-icon> مجموعه</button>
+        <button mat-menu-item (click)="onLogout()">Logout</button>
+    </mat-menu>
+    <button mat-icon-button class="example-icon" (click)="onClickSide()" aria-label="Example icon-button with share icon">
+<mat-icon>menu</mat-icon>
+</button>
+</mat-toolbar>

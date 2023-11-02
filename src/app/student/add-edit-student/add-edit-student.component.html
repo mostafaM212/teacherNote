@@ -1,0 +1,91 @@
+<div class="loginContainer">
+    <div class="viewContainer">
+        <div class="formContainer">
+            <mat-card>
+                <form [formGroup]="studentForm">
+                    <mat-card-header class="flex" style="flex-direction: column;padding: 0px;">
+                        <!-- <mat-card-title>Actions Buttons</mat-card-title>
+              <mat-card-subtitle>Start</mat-card-subtitle> -->
+                        <!-- <img src="../../../assets/logos/دفتر الاستاذ-logos_transparent2.png" class="logo" alt="" srcset=""> -->
+                        <!-- <h6 class="title">معلم جديد</h6> -->
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="content">
+                            <h1 class="dark">أضافه طالب</h1>
+                        </div>
+                        <div class="example-full-width">
+                            <div class="inline-flex">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>اسم الطالب</mat-label>
+                                    <!-- <span matPrefix>+1 &nbsp;</span> -->
+                                    <input type="text" matInput placeholder="  الاسم الطالب" formControlName="name">
+                                    <mat-icon matSuffix>person</mat-icon>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>المجموعه</mat-label>
+                                    <mat-select formControlName="group">
+                                        <mat-option *ngFor="let group of groups$ |async" [value]="group._id">{{group.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!-- <div class="example-full-width">
+                            <div class="inline-flex">
+
+
+                            </div>
+                        </div> -->
+                        <div class="example-full-width">
+                            <div class="inline-flex">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>السعر</mat-label>
+                                    <!-- <span matPrefix>+1 &nbsp;</span> -->
+                                    <input type="number" min="0" matInput placeholder="السعر" formControlName="price">
+                                    <mat-icon matSuffix>money</mat-icon>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>طريقه الدفع</mat-label>
+                                    <mat-select formControlName="paymentMethod">
+                                        <mat-option value="every lesson">كل حصه</mat-option>
+                                        <mat-option value="monthly">شهريا</mat-option>
+
+                                    </mat-select>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="example-full-width">
+                            <div class="inline-flex">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>النوع</mat-label>
+                                    <mat-select formControlName="gender">
+                                        <mat-option [value]="'Male'">رجل</mat-option>
+                                        <mat-option [value]="'Female'">أنثى</mat-option>
+                                    </mat-select>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>رقم تليفون الوالد</mat-label>
+                                    <!-- <span matPrefix>+1 &nbsp;</span> -->
+                                    <input type="text" matInput placeholder="رقم تليفون الوالد" formControlName="phone">
+                                    <mat-icon matSuffix>phone</mat-icon>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions class="flex ">
+                        <button mat-raised-button type="submit" (click)="save()" class="dark"> اضافه طالب </button>
+                    </mat-card-actions>
+                </form>
+            </mat-card>
+        </div>
+        <div class="logoContainer">
+            <img src="../../../assets//images/49065332.jpg" class="img" alt="" srcset="">
+        </div>
+    </div>
+
+</div>

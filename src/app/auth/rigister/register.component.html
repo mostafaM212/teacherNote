@@ -1,0 +1,97 @@
+<div class="loginContainer">
+    <div class="viewContainer">
+        <div class="formContainer">
+            <mat-card>
+                <form [formGroup]="registerForm">
+                    <mat-card-header class="flex" style="flex-direction: column;padding: 0px;">
+                        <!-- <mat-card-title>Actions Buttons</mat-card-title>
+                  <mat-card-subtitle>Start</mat-card-subtitle> -->
+                        <!-- <img src="../../../assets/logos/دفتر الاستاذ-logos_transparent2.png" class="logo" alt="" srcset=""> -->
+                        <!-- <h6 class="title">معلم جديد</h6> -->
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="content">
+                            <div class="inline-flex">
+                                <ng-container *ngIf="!imageUrl">
+                                    <div class="imgContainer content" (click)="input.click()">
+                                        <mat-icon>photo_camera</mat-icon>
+                                        <input type="file" style="display: none;" #input (change)="onSelectFile($event)">
+
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="imageUrl">
+                                    <div class="imgContainer content">
+                                        <img [src]="imageUrl" width="75px" height="75px" style="border-radius: 50%;" alt="" srcset="">
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                        </div>
+                        <div class="example-full-width">
+                            <div class="inline-flex">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>اسم المعلم</mat-label>
+                                    <!-- <span matPrefix>+1 &nbsp;</span> -->
+                                    <input type="text" matInput placeholder="الاسم" formControlName="name">
+                                    <mat-icon matSuffix>person</mat-icon>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>البريد الالكترونى</mat-label>
+                                    <!-- <span matPrefix>+1 &nbsp;</span> -->
+                                    <input type="email" matInput placeholder="example@web.com" formControlName="email">
+                                    <mat-icon matSuffix>mail</mat-icon>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="example-full-width">
+                            <div class="inline-flex">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>كلمه المرور</mat-label>
+                                    <input matInput type="password" #password placeholder="*********" formControlName="password">
+                                    <button class="icon" [disabled]="!password.value" matSuffix mat-icon-button aria-label="Clear" (click)="password.value=''">
+                          <mat-icon >close</mat-icon>
+                        </button>
+                                    <mat-error class="dark">هذا الحقل يجب ان يكون اكثر من 6 احرف</mat-error>
+
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label> أعاده كلمه المرور</mat-label>
+                                    <input matInput type="password" #repeatPassword placeholder="*********" formControlName="repeatPassword">
+                                    <button class="icon" [disabled]="!repeatPassword.value" matSuffix mat-icon-button aria-label="Clear" (click)="repeatPassword.value=''">
+                        <mat-icon >close</mat-icon>
+                      </button>
+                                    <mat-error class="dark">هذا الحقل مطلوب</mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="example-full-width">
+                            <div class="inline-flex">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>رقم التليفون</mat-label>
+                                    <!-- <span matPrefix>+1 &nbsp;</span> -->
+                                    <input type="text" matInput placeholder="الاسم" formControlName="phone">
+                                    <mat-icon matSuffix>call</mat-icon>
+                                    <mat-error class="dark سةش">هذا الحقل مطلوب</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="flex" style="justify-content: flex-start;">
+                            <a [routerLink]="['/auth' , 'login']" class="link">تسجيل الدخول</a>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions class="flex ">
+                        <button mat-raised-button type="submit" (click)="save()" class="dark"> اضافه معلم </button>
+
+                    </mat-card-actions>
+                </form>
+            </mat-card>
+        </div>
+        <div class="logoContainer">
+            <img src="../../../assets//images/49065322.jpg" class="img" alt="" srcset="">
+        </div>
+    </div>
+
+</div>
