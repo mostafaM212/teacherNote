@@ -87,3 +87,10 @@ tr[mat-row]:hover {
 table {
   border-radius: 10px;
 }
+
+.student-btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

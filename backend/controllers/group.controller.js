@@ -59,15 +59,20 @@ exports.getGroup = (req, res, next) => {
     });
 };
 exports.updateGroup = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json(errors);
+  }
   Group.updateOne({ _id: req.params.id }, { ...req.body })
     .then((data) => {
-      res.status(200).json({
+      return res.status(200).json({
         message: "Group created Successfully!",
         group: data,
       });
     })
     .catch((e) => {
-      res.status(500).json({
+      return res.status(500).json({
         message: "Error on Saving Group",
       });
     });

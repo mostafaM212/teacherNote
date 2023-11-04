@@ -7,6 +7,7 @@ const angularCoreMiddleware = require("./middlewares/angularCoreHeaders.middlewa
 const userRoutes = require("./routes/user");
 const groupRoutes = require("./routes/group");
 const studentRoutes = require("./routes/student");
+const studentAttendancesRoutes = require("./routes/student-attendance");
 
 mongoose
   .connect("mongodb://localhost:27017/teacherNote")
@@ -24,6 +25,7 @@ app.use("/images", express.static(path.join("backend/images")));
 app.use("/users", userRoutes);
 app.use("/groups", groupRoutes);
 app.use("/students", studentRoutes);
+app.use("/studentAttendances", studentAttendancesRoutes);
 
 app.use((req, res, next) => {
   res.send("hello from express");

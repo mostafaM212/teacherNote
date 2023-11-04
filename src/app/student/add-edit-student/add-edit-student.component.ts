@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators, UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, tap, takeUntil } from 'rxjs';
 import { days } from 'src/app/constant/days';
 import { stages } from 'src/app/constant/stageArray';
@@ -19,6 +19,7 @@ export class AddEditStudentComponent implements OnInit, OnDestroy {
   stages = stages;
   days = days;
   addMode: boolean = true;
+  id: string = '';
   studentForm = this.fb.group({
     name: ['', [Validators.required]],
     phone: ['', Validators.required],
@@ -32,12 +33,33 @@ export class AddEditStudentComponent implements OnInit, OnDestroy {
     private groupService: GroupService,
     private notifyService: NotifyService,
     private router: Router,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
     this.getGroups();
+    this.activatedRoute.params.subscribe((data) => {
+      if (data['id']) {
+        this.addMode = false;
+        this.getGroup(data['id']);
+        this.id = data['id'];
+      }
+    });
   }
-
+  getGroup(id: string) {
+    this.studentService
+      .getStudent(id)
+      .pipe(
+        tap((data) => {
+          this.studentForm.patchValue({
+            ...data.student,
+            group: data.student.group._id,
+          });
+        }),
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe();
+  }
   getGroups() {
     this.groupService
       .getGroups()
@@ -65,6 +87,17 @@ export class AddEditStudentComponent implements OnInit, OnDestroy {
               this.studentForm.value.group,
             ]);
             this.notifyService.success('تم اضافه المجموعه بنجاح');
+          }),
+          takeUntil(this._unsubscribe$)
+        )
+        .subscribe();
+    } else {
+      this.studentService
+        .updateStudent(this.id, this.studentForm.value)
+        .pipe(
+          tap((data) => {
+            this.router.navigate(['/student', 'view', this.id]);
+            this.notifyService.success('تم تعديل المجموعه بنجاح');
           }),
           takeUntil(this._unsubscribe$)
         )

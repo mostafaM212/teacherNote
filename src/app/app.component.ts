@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((data) => {
       // get the data from the snapshot
       // console.log('test', data);
-      console.log('test', data);
+      // console.log('test', data);
 
       if (data instanceof NavigationCancel || data instanceof NavigationError) {
         if (this.authService.isAuthenticated$.getValue()) {

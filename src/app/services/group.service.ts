@@ -19,8 +19,8 @@ export class GroupService {
   getGroups() {
     return this.http.get<{ message: string; groups: Group[] }>(this.baseUrl);
   }
-  updateGroup(data: any) {
-    return this.http.put(this.baseUrl, data);
+  updateGroup(id: string, data: any) {
+    return this.http.put(this.baseUrl + '/' + id, data);
   }
   getGroup(id: string) {
     return this.http.get<{ message: string; group: Group }>(

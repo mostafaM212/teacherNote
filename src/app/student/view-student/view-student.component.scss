@@ -71,10 +71,6 @@ table {
   background-color: #ccc;
 }
 
-// td:hover {
-//   background-color: whitesmoke;
-//   cursor: pointer;
-// }
 tr[mat-header-row] {
   background-color: whitesmoke;
 }
@@ -86,4 +82,11 @@ tr[mat-row]:hover {
 
 table {
   border-radius: 10px;
+}
+
+.student-btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

@@ -11,7 +11,9 @@
                     </mat-card-header>
                     <mat-card-content>
                         <div class="content">
-                            <h1 class="dark">أضافه طالب</h1>
+                            <h1 class="dark" *ngIf="!addMode">أضافه طالب</h1>
+                            <h1 class="dark" *ngIf="addMode">تعديل طالب</h1>
+
                         </div>
                         <div class="example-full-width">
                             <div class="inline-flex">
@@ -25,7 +27,7 @@
                                 <mat-form-field appearance="outline" class="example-full-width">
                                     <mat-label>المجموعه</mat-label>
                                     <mat-select formControlName="group">
-                                        <mat-option *ngFor="let group of groups$ |async" [value]="group._id">{{group.name}}</mat-option>
+                                        <mat-option *ngFor="let group of groups$ |async" [value]="group._id">{{group.stage}}({{group.gender}})</mat-option>
                                     </mat-select>
                                     <mat-error class="dark">هذا الحقل مطلوب</mat-error>
                                 </mat-form-field>
@@ -78,7 +80,7 @@
                         </div>
                     </mat-card-content>
                     <mat-card-actions class="flex ">
-                        <button mat-raised-button type="submit" (click)="save()" class="dark"> اضافه طالب </button>
+                        <button mat-raised-button type="submit" (click)="save()" class="dark"> حفظ</button>
                     </mat-card-actions>
                 </form>
             </mat-card>

@@ -29,11 +29,11 @@ router.get(
 router.put(
   "/:id",
   [
-    body(["name", "time", "stage", "gender"], "this field is required")
+    body(["name", "phone", "group"], "this field is required")
       .exists()
       .isString()
       .notEmpty(),
-    body(["day"], "this field is required").exists().isNumeric().notEmpty(),
+    body(["price"], "this field is required").exists().isNumeric().notEmpty(),
     // check("stage", "this field is required").isString(),
   ],
   authMiddleware,

@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, UntypedFormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { days } from 'src/app/constant/days';
 import { stages } from 'src/app/constant/stageArray';
+import { Group } from 'src/app/models/Group';
 import { GroupService } from 'src/app/services/group.service';
 import { NotifyService } from 'src/app/services/notify.service';
 
@@ -17,6 +18,7 @@ export class AddEditGroupComponent implements OnDestroy, OnInit {
   stages = stages;
   days = days;
   addMode: boolean = true;
+  id: string = '';
   groupForm = this.fb.group({
     name: ['', [Validators.required]],
     stage: [Validators.required],
@@ -31,14 +33,36 @@ export class AddEditGroupComponent implements OnDestroy, OnInit {
     private fb: UntypedFormBuilder,
     private groupService: GroupService,
     private notifyService: NotifyService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.addAppointment();
+    if (this.addMode) {
+      this.addAppointment();
+    }
+    this.activatedRoute.params.subscribe((data) => {
+      if (data['id']) {
+        this.addMode = false;
+        this.id = data['id'];
+        this.getGroup(this.id);
+      }
+    });
   }
 
   get appointments() {
     return this.groupForm.get('appointments') as FormArray;
+  }
+
+  getGroup(id: string) {
+    this.groupService
+      .getGroup(id)
+      .pipe(
+        tap((data) => {
+          this.putDataToForm(data.group);
+          // console.log('test', data.group);
+        }, takeUntil(this._unsubscribe$))
+      )
+      .subscribe();
   }
   addAppointment() {
     const appointmentForm = this.fb.group({
@@ -50,13 +74,40 @@ export class AddEditGroupComponent implements OnDestroy, OnInit {
   removeAppointment(i: number) {
     this.appointments.removeAt(i);
   }
+  appointmentsFormatter(data: any[]) {
+    let newdata: any[] = [];
+    data.map((data) => {
+      const [hour, minute] = data.time.split(':');
+      console.log('test', hour, minute);
+    });
+    return data;
+  }
+  putDataToForm(group: any) {
+    Object.keys(this.groupForm.value).map((data) => {
+      if (data !== 'appointments') {
+        this.groupForm.patchValue({ [data]: group[data] });
+      }
+    });
+    let newdata: any[] = [];
+    console.log('test', group.appointments);
+
+    group.appointments.map((data: any) => {
+      const [hour, minute] = data.time.split(':');
+      let newDate = new Date(new Date().setHours(hour, minute));
+      newdata.push({ time: newDate, day: data.day });
+    });
+    // console.log('test', newdata);
+
+    this.groupForm.patchValue({
+      appointments: newdata,
+    });
+  }
   save() {
     if (this.groupForm.invalid) {
       this.notifyService.info('تاكد من ملئ جميع الحقول ');
       return;
     }
     let body = this.bodyFormatter();
-    console.log('test', body);
 
     if (this.addMode) {
       this.groupService
@@ -65,6 +116,17 @@ export class AddEditGroupComponent implements OnDestroy, OnInit {
           tap((data) => {
             this.router.navigate(['/group']);
             this.notifyService.success('تم اضافه المجموعه بنجاح');
+          }),
+          takeUntil(this._unsubscribe$)
+        )
+        .subscribe();
+    } else {
+      this.groupService
+        .updateGroup(this.id, body)
+        .pipe(
+          tap((data) => {
+            this.router.navigate(['/group', 'view', this.id]);
+            this.notifyService.success('تم تعديل المجموعه بنجاح');
           }),
           takeUntil(this._unsubscribe$)
         )

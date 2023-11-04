@@ -11,7 +11,9 @@
                     </mat-card-header>
                     <mat-card-content>
                         <div class="content">
-                            <h1 class="dark">مجموعه جديده</h1>
+                            <h1 class="dark" *ngIf="addMode">مجموعه جديده</h1>
+                            <h1 class="dark" *ngIf="!addMode">تعديل المجموعه</h1>
+
                         </div>
                         <div class="example-full-width">
                             <div class="inline-flex">
@@ -85,7 +87,7 @@
 
                     </mat-card-content>
                     <mat-card-actions class="flex ">
-                        <button mat-raised-button type="submit" (click)="save()" class="dark"> اضافه مجموعه </button>
+                        <button mat-raised-button type="submit" (click)="save()" class="dark"> {{addMode ? 'اضافه مجموعه': 'تعديل مجموعه '}} </button>
 
 
                     </mat-card-actions>

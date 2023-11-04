@@ -27,8 +27,11 @@ export class StudentService {
       this.baseUrl + '/group/' + id
     );
   }
-  updateStudent(data: any) {
-    return this.http.put(this.baseUrl, data);
+  updateStudent(id: string, data: any) {
+    return this.http.put<{ message: string; student: Student }>(
+      this.baseUrl + '/' + id,
+      data
+    );
   }
   getStudent(id: string) {
     return this.http.get<{ message: string; student: Student }>(

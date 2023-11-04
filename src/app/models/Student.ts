@@ -1,3 +1,5 @@
+import { StudentAttendance } from './StudentAttendance';
+
 export interface Student {
   _id?: string;
   name: string;
@@ -6,5 +8,6 @@ export interface Student {
   gender: string;
   price: number;
   group?: any;
+  studentAttendances: any[];
   paymentMethod: string;
 }
