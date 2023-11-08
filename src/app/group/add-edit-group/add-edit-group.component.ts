@@ -78,7 +78,7 @@ export class AddEditGroupComponent implements OnDestroy, OnInit {
     let newdata: any[] = [];
     data.map((data) => {
       const [hour, minute] = data.time.split(':');
-      console.log('test', hour, minute);
+      // console.log('test', hour, minute);
     });
     return data;
   }
@@ -89,7 +89,7 @@ export class AddEditGroupComponent implements OnDestroy, OnInit {
       }
     });
     let newdata: any[] = [];
-    console.log('test', group.appointments);
+    // console.log('test', group.appointments);
 
     group.appointments.map((data: any) => {
       const [hour, minute] = data.time.split(':');

@@ -40,6 +40,14 @@
           <mat-icon class="mat-18">edit</mat-icon>
           <span>تعديل</span>
         </button>
+            <button mat-raised-button style="margin-top: 20px;" (click)="openQuizDialog()">
+          <mat-icon class="mat-18">add</mat-icon>
+          <span>اختبار</span>
+        </button>
+            <button mat-raised-button style="margin-top: 20px;" [routerLink]="['/student','view' , 'level' , id]">
+          <mat-icon class="mat-18">book</mat-icon>
+          <span>مستوى الطالب</span>
+        </button>
             <button mat-raised-button style="margin-top: 20px;" [disabled]="checkIfThereAttendanceToday()" (click)="onAddAttendance()">
           <mat-icon class="mat-18">add</mat-icon>
           <span>حضور</span>

@@ -11,6 +11,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
+import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+
 @NgModule({
   exports: [
     MatToolbarModule,
@@ -25,6 +28,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatTableModule,
     MatTooltipModule,
     MatChipsModule,
+    MatPaginatorModule,
+    MatDialogModule,
   ],
 })
 export class AngularMaterialModule {}

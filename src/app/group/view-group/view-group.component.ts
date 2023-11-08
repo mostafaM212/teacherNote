@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subject, forkJoin, takeUntil, tap } from 'rxjs';
 import { days } from 'src/app/constant/days';
@@ -7,6 +8,7 @@ import { Student } from 'src/app/models/Student';
 import { StudentAttendance } from 'src/app/models/StudentAttendance';
 import { GroupService } from 'src/app/services/group.service';
 import { NotifyService } from 'src/app/services/notify.service';
+import { QuizService } from 'src/app/services/quiz.service';
 import { StudentAttendanceService } from 'src/app/services/student-attendance.service';
 import { StudentService } from 'src/app/services/student.service';
 
@@ -21,22 +23,38 @@ export class ViewGroupComponent implements OnInit, OnDestroy {
   students$ = new BehaviorSubject<Student[]>([]);
   days = days;
   day!: { name: string; value: number };
-  displayedColumns: string[] = ['name', 'phone', 'gender', 'action'];
+  displayedColumns: string[] = ['name', 'phone', 'gender', 'quiz', 'action'];
   id: string = '';
   disableForAllBtn: boolean = false;
+  disableDegreeBtn: boolean = false;
+  quizForm = this.fb.group({
+    total: [10, [Validators.required, Validators.min(0)]],
+    studentDegrees: this.fb.array([]),
+  });
   constructor(
     private groupService: GroupService,
     private activatedRoute: ActivatedRoute,
     private studentService: StudentService,
     private notifyService: NotifyService,
-    private attendanceService: StudentAttendanceService
+    private attendanceService: StudentAttendanceService,
+    private fb: UntypedFormBuilder,
+    private quizService: QuizService
   ) {}
-
+  get studentDegrees(): FormArray {
+    return this.quizForm.get('studentDegrees') as FormArray;
+  }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((data) => {
       this.getData(data['id']);
       this.id = data['id'];
     });
+  }
+  addStudentDegree(studentId: string) {
+    const degreeForm = this.fb.group({
+      degree: [0, [Validators.required, Validators.min(0)]],
+      student: [studentId],
+    });
+    this.studentDegrees.push(degreeForm);
   }
   addStudentAttendanceForAllStudents() {
     if (!confirm('هل تريد اضافه حضور لكل الطلاب')) {
@@ -109,6 +127,7 @@ export class ViewGroupComponent implements OnInit, OnDestroy {
           this.students$.next(data.students.students);
           let disable = false;
           data.students.students.map((student) => {
+            this.addStudentDegree(student._id as string);
             if (this.checkIfThereAttendanceToday(student.studentAttendances)) {
               disable = true;
             }
@@ -167,6 +186,35 @@ export class ViewGroupComponent implements OnInit, OnDestroy {
       }
     });
     return check;
+  }
+  addQuizHandler() {
+    if (!confirm('هل تريد اضافه امتحان لهذا الطالب؟')) {
+      return;
+    }
+    if (this.quizForm.invalid) {
+      this.notifyService.info('تاكد من ملئ جميع البيانات');
+      return;
+    }
+    const body: any[] = [];
+    const total: number = this.quizForm.value.total;
+    this.studentDegrees.controls.map((control) => {
+      body.push({
+        student: control.value.student,
+        degree: control.value.degree,
+        total: total,
+        percentage: control.value.degree / total,
+      });
+    });
+    this.quizService
+      .addQuizForAllStudents(body)
+      .pipe(
+        tap((data) => {
+          this.notifyService.success('تم اضافه الاختبارات بدرجات الطلاب بنجاح');
+          this.disableDegreeBtn = true;
+        }),
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe();
   }
   ngOnDestroy(): void {
     this._unsubscribe$.next(true);

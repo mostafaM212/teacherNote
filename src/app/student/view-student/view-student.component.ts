@@ -1,11 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subject, forkJoin, takeUntil, tap } from 'rxjs';
 import { Student } from 'src/app/models/Student';
-import { GroupService } from 'src/app/services/group.service';
 import { NotifyService } from 'src/app/services/notify.service';
 import { StudentAttendanceService } from 'src/app/services/student-attendance.service';
 import { StudentService } from 'src/app/services/student.service';
+import { AddQuizComponent } from './add-quiz/add-quiz.component';
 
 @Component({
   selector: 'app-view-student',
@@ -22,7 +27,8 @@ export class ViewStudentComponent implements OnInit, OnDestroy {
     private studentService: StudentService,
     private activatedRoute: ActivatedRoute,
     private attendanceService: StudentAttendanceService,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private dialogRef: MatDialog
   ) {}
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((data) => {
@@ -104,6 +110,15 @@ export class ViewStudentComponent implements OnInit, OnDestroy {
       }
     });
     return check;
+  }
+  openQuizDialog() {
+    let dialog = this.dialogRef.open(AddQuizComponent, {
+      data: {
+        student: this.id,
+      },
+      width: '40%',
+      height: '50%',
+    });
   }
   ngOnDestroy(): void {
     this._unsubscribe$.next(true);

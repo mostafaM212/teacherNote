@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environment/environment';
@@ -17,10 +17,22 @@ export class StudentService {
   addStudent(data: any) {
     return this.http.post(this.baseUrl, data);
   }
-  getStudents() {
-    return this.http.get<{ message: string; students: Student[] }>(
-      this.baseUrl
-    );
+  getStudents(numOfDocs?: number, from?: number, search?: string) {
+    let httpParams = new HttpParams();
+    if (numOfDocs) httpParams = httpParams.append('numOfDocs', numOfDocs);
+    if (from) httpParams = httpParams.append('from', from);
+    if (from) httpParams = httpParams.append('from', from);
+    if (search) httpParams = httpParams.append('search', search);
+
+    // console.log('test', httpParams);
+
+    return this.http.get<{
+      message: string;
+      students: Student[];
+      totalDocs: number;
+    }>(this.baseUrl, {
+      params: httpParams,
+    });
   }
   getStudentsByGroup(id: string) {
     return this.http.get<{ message: string; students: Student[] }>(

@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="flex header">
+        <h3>اضافه اختبار</h3>
+    </div>
+    <form [formGroup]="quizForm">
+        <div class="flex">
+            <div class="">
+                <mat-form-field>
+                    <mat-label>درجه الامتحان</mat-label>
+                    <input matInput placeholder="درجه الامتحان" type="number" min="0" formControlName="degree" [max]="quizForm.get('total')?.value">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    <mat-hint>برجاء ادخال درجه كل طالب </mat-hint>
+                    <mat-error>القيمه غير صحيحه</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="">
+                <mat-form-field>
+                    <mat-label>الدرجه الكليه</mat-label>
+                    <input matInput placeholder="الدرجه الكليه" type="number" min="0" formControlName="total">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    <mat-hint>برجاء ادخال الدرجه الكليه </mat-hint>
+                    <mat-error>القيمه غير صحيحه</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="">
+                <button mat-raised-button color="primary" (click)="save()" type="submit">حفظ</button>
+            </div>
+        </div>
+    </form>
+</div>

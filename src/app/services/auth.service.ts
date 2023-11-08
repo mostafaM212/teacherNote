@@ -5,10 +5,8 @@ import { User } from '../models/User';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateChild,
-  CanMatch,
   Route,
+  Router,
   RouterStateSnapshot,
   UrlSegment,
   UrlTree,
@@ -18,13 +16,13 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements CanActivate, CanActivateChild, CanMatch {
+export class AuthService {
   user$ = new BehaviorSubject<User | null>(null);
   isAuthenticated$ = new BehaviorSubject<boolean>(false);
   token$ = new BehaviorSubject<string>('');
   baseUrl: string = environment.backendUrl + 'users';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   addUser(user: any) {
     return this.http.post(this.baseUrl, user);
@@ -42,6 +40,7 @@ export class AuthService implements CanActivate, CanActivateChild, CanMatch {
           this.isAuthenticated$.next(true);
           this.token$.next(data.token);
           this.setUserDataToLocalStorage(data.user, data.token);
+          this.router.navigate(['home']);
         })
       );
   }
@@ -80,6 +79,7 @@ export class AuthService implements CanActivate, CanActivateChild, CanMatch {
     this.isAuthenticated$.next(false);
     this.user$.next(null);
     this.token$.next('');
+    this.router.navigate(['/auth', 'login']);
     // this.toast.success('logout successfully');
   }
 
@@ -91,7 +91,7 @@ export class AuthService implements CanActivate, CanActivateChild, CanMatch {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return !this.isAuthenticated$;
+    return this.isAuthenticated$.getValue();
   }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
@@ -101,7 +101,7 @@ export class AuthService implements CanActivate, CanActivateChild, CanMatch {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return !this.isAuthenticated$;
+    return this.isAuthenticated$.getValue();
   }
   canMatch(
     route: Route,
@@ -111,6 +111,6 @@ export class AuthService implements CanActivate, CanActivateChild, CanMatch {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return !this.isAuthenticated$;
+    return this.isAuthenticated$.getValue();
   }
 }

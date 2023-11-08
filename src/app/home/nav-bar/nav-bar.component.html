@@ -10,7 +10,9 @@
     </button>
     <mat-menu #menu>
         <button mat-menu-item [routerLink]="['/group' , 'add']"><mat-icon>add</mat-icon> مجموعه</button>
-        <button mat-menu-item (click)="onLogout()">Logout</button>
+        <button mat-menu-item [routerLink]="['/student' , 'add']"><mat-icon>add</mat-icon> طالب</button>
+
+        <button mat-menu-item style="color: red;" (click)="onLogout()"> <mat-icon style="color: red;">logout</mat-icon> تسجيل خروج</button>
     </mat-menu>
     <button mat-icon-button class="example-icon" (click)="onClickSide()" aria-label="Example icon-button with share icon">
 <mat-icon>menu</mat-icon>

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 import { days } from 'src/app/constant/days';
 import { Student } from 'src/app/models/Student';
@@ -12,13 +13,40 @@ import { StudentService } from 'src/app/services/student.service';
 })
 export class StudentListComponent implements OnInit, OnDestroy {
   _unsubscribe$ = new Subject<boolean>();
-
   students$ = new BehaviorSubject<Student[]>([]);
+  length = 50;
+  pageSize = 10;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+  search: string = '';
   days = days;
   day!: { name: string; value: number };
   displayedColumns: string[] = ['name', 'group', 'time', 'phone', 'action'];
   id: string = '';
   disableForAllBtn: boolean = false;
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
+
+  pageEvent!: PageEvent;
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+
+    this.getStudents(this.pageSize, this.pageIndex * this.pageSize);
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput
+        .split(',')
+        .map((str) => +str);
+    }
+  }
   constructor(
     // private groupService: GroupService,
     // private activatedRoute: ActivatedRoute,
@@ -27,15 +55,22 @@ export class StudentListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getData();
+    this.getStudents(this.pageSize, this.pageIndex * this.pageSize);
   }
-
-  getData() {
+  onSearch() {
+    this.getStudents(
+      this.pageSize,
+      this.pageIndex * this.pageSize,
+      this.search
+    );
+  }
+  getStudents(numOfDocs: number, from: number, search?: string) {
     this.studentService
-      .getStudents()
+      .getStudents(numOfDocs, from, search)
       .pipe(
         tap((data) => {
           this.students$.next(data.students);
+          this.length = data.totalDocs;
         }),
         takeUntil(this._unsubscribe$)
       )
