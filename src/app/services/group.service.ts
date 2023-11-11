@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environment/environment';
@@ -16,8 +16,12 @@ export class GroupService {
   addGroup(data: any) {
     return this.http.post(this.baseUrl, data);
   }
-  getGroups() {
-    return this.http.get<{ message: string; groups: Group[] }>(this.baseUrl);
+  getGroups(day?: number) {
+    let httpParams = new HttpParams();
+    if (day) httpParams = httpParams.append('day', day);
+    return this.http.get<{ message: string; groups: Group[] }>(this.baseUrl, {
+      params: httpParams,
+    });
   }
   updateGroup(id: string, data: any) {
     return this.http.put(this.baseUrl + '/' + id, data);

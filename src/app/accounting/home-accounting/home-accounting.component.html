@@ -1,0 +1,45 @@
+<div class="group-list">
+    <div class="">
+        <h1>جزء الحسابات</h1>
+    </div>
+    <div class="list-container">
+        <mat-card class="card" *ngIf="monthly">
+            <mat-card-header class="blue">
+                <p>شهريا</p>
+            </mat-card-header>
+            <mat-card-content class="group-list">
+                <h3 class="stage">أجمالى <span style="color: green;">{{monthly.totalSalary}}</span></h3>
+
+            </mat-card-content>
+
+            <mat-card-actions class="card-actions">
+                <mat-icon style="font-size: large; height: 20px;">person</mat-icon>
+                <div class="flex">
+                    <span> {{monthly.count}}</span>
+                    <!-- <mat-icon style="font-size: large; height: 20px;">person</mat-icon> -->
+
+                </div>
+
+            </mat-card-actions>
+        </mat-card>
+        <mat-card class="card">
+            <mat-card-header class="blue">
+                <p>كل حصه</p>
+            </mat-card-header>
+            <mat-card-content class="group-list">
+                <h3 class="stage">أجمالى <span style="color: green;">{{everyLesson.totalSalary}}</span></h3>
+
+            </mat-card-content>
+
+            <mat-card-actions class="card-actions">
+                <mat-icon style="font-size: large; height: 20px;">person</mat-icon>
+                <div class="flex">
+                    <span> {{everyLesson.count}}</span>
+
+
+                </div>
+
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

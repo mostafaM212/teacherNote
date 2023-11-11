@@ -31,7 +31,14 @@ exports.addGroup = (req, res, next) => {
 };
 
 exports.getGroups = (req, res, next) => {
-  Group.find()
+  let day = +req.query.day;
+  console.log("test", req.query.day);
+
+  let query = {};
+  if (day) {
+    query = { "appointments.day": day };
+  }
+  Group.find(query)
     .then((data) => {
       res.status(200).json({
         message: "Group created Successfully!",

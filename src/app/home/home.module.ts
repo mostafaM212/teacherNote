@@ -9,7 +9,12 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
 
 @NgModule({
   declarations: [HomeComponent, NavBarComponent, SideNavComponent],
-  imports: [CommonModule, HomeRoutingModule, AngularMaterialModule],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    AngularMaterialModule,
+    // AngularMaterialModule,
+  ],
   exports: [NavBarComponent, SideNavComponent],
 })
 export class HomeModule {}

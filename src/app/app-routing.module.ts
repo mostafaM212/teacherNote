@@ -31,6 +31,13 @@ const routes: Routes = [
       import('./student/student.module').then((m) => m.StudentModule),
   },
   {
+    path: 'accounting',
+    canActivate: [authGuard],
+
+    loadChildren: () =>
+      import('./accounting/accounting.module').then((m) => m.AccountingModule),
+  },
+  {
     canMatch: [authMatchGuard],
     path: '',
     pathMatch: 'full',

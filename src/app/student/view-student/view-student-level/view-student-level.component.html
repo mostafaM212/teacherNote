@@ -1,54 +1,76 @@
 <div class="container">
-    <div class="dataContainer"></div>
+    <div class="dataContainer">
+        <div class="dataContainer" style="align-items: start;">
+            <div class="data text">
+                <mat-icon class="brawn">person</mat-icon>{{student$.getValue()?.name}}
+            </div>
+            <div class="data h1">
+                <mat-icon class="brawn">payments</mat-icon>{{student$.getValue()?.paymentMethod == 'monthly' ? 'شهريا' : 'كل حصه'}}
+            </div>
+            <div class="data h1">
+                <mat-icon class="brawn">phone</mat-icon>{{student$.getValue()?.phone}}
+            </div>
+            <div class="data h1">
+                <mat-icon class="brawn">list</mat-icon>{{student$.getValue()?.group.stage}}
+            </div>
+            <div class="data h1" *ngIf="studentLevel && quizzes$.getValue().length">
+                <mat-icon [ngStyle]="{color : studentLevel.color}">show_chart</mat-icon>
+                <p [ngStyle]="{color : studentLevel.color}" class="text">{{studentLevel.name}}</p>
+            </div>
+        </div>
+    </div>
     <div class="chartContainer">
-        <div echarts [options]="chartOption" class="demo-chart"></div>
+        <div echarts [options]="chartOption" class="demo-chart" *ngIf="quizzes$.getValue().length"></div>
+        <h3 *ngIf="!quizzes$.getValue().length">لا يوجد اختبارات لهذا الطالب</h3>
     </div>
 </div>
-<div class="">
-    <table mat-table [dataSource]="quizzes$.getValue() " class="mat-elevation-z8">
+<div class="tableContainer" *ngIf="quizzes$.getValue().length">
+    <div class="table">
+        <table mat-table [dataSource]="quizzes$.getValue() " class="mat-elevation-z8">
 
-        <!--- Note that these columns can be defined in any order.
+            <!--- Note that these columns can be defined in any order.
 The actual rendered columns are set as a property on the row definition" -->
 
-        <!-- Position Column  ['total', 'degree', 'percentage', 'date']-->
-        <ng-container matColumnDef="total">
-            <th mat-header-cell *matHeaderCellDef class=" table-header"> الدرجه الكامله </th>
-            <td mat-cell *matCellDef="let element" class=" table-row"> {{element.total}} </td>
-        </ng-container>
+            <!-- Position Column  ['total', 'degree', 'percentage', 'date']-->
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef class=" table-header"> الدرجه الكامله </th>
+                <td mat-cell *matCellDef="let element" class=" table-row"> {{element.total}} </td>
+            </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="degree">
-            <th mat-header-cell *matHeaderCellDef class=" table-header"> درجه الطالب </th>
-            <td mat-cell *matCellDef="let element"> {{element.degree}} </td>
-        </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="degree">
+                <th mat-header-cell *matHeaderCellDef class=" table-header"> درجه الطالب </th>
+                <td mat-cell *matCellDef="let element"> {{element.degree}} </td>
+            </ng-container>
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="percentage">
-            <th mat-header-cell *matHeaderCellDef class=" table-header"> النسبه المئويه</th>
-            <td mat-cell *matCellDef="let element"> {{element.percentage}} </td>
-        </ng-container>
-        <!-- Weight Column -->
-        <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef class=" table-header"> وقت الاختبار</th>
-            <td mat-cell *matCellDef="let element"> {{element.createdAt | date : 'medium'}} </td>
-        </ng-container>
-        <!-- Symbol Column -->
-        <!-- <ng-container matColumnDef="gender">
+            <!-- Weight Column -->
+            <ng-container matColumnDef="percentage">
+                <th mat-header-cell *matHeaderCellDef class=" table-header"> النسبه المئويه</th>
+                <td mat-cell *matCellDef="let element"> {{element.percentage * 100}} </td>
+            </ng-container>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef class=" table-header"> وقت الاختبار</th>
+                <td mat-cell *matCellDef="let element"> {{element.createdAt | date : 'medium'}} </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <!-- <ng-container matColumnDef="gender">
         <th mat-header-cell *matHeaderCellDef class=" table-header"> مستوى الطالب </th>
         <td mat-cell *matCellDef="let element" > {{element.gender == 'Male' ? 'ذكر' : 'انثى' }} </td>
     </ng-container> -->
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef class=" table-header"> الاجراء</th>
-            <td mat-cell *matCellDef="let element">
-                <div class="example-flex-container">
-                    <button mat-icon-button matTooltip="حذف هذا الحضور" (click)="onDeleteQuiz(element._id)" aria-label="Example icon button with a open in new tab icon">
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef class=" table-header"> الاجراء</th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="example-flex-container">
+                        <button mat-icon-button matTooltip="حذف هذا الاختبار" (click)="onDeleteQuiz(element._id)" aria-label="Example icon button with a open in new tab icon">
               <mat-icon style="color: red;">delete</mat-icon>
         </button>
-                </div>
-            </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
 </div>

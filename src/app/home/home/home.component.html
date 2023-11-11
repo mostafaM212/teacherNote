@@ -2,8 +2,48 @@
     <div class="viewContainer">
         <div class="formContainer">
             <div class="titleContainer">
-                <h2 class="great">{{nowHours > 12 ? 'مساء الخير' : 'صباح الخير'}}</h2>
-                <h2 class="name">مصطفى محمد</h2>
+                <h2 class="great"> {{nowHours > 12 ? 'مساء الخير' : 'صباح الخير'}} <span class="name">مصطفى محمد</span></h2>
+                <h2 class="great"> <span class=""> لديك اليوم <span style="color: green;">{{groups$.getValue().length }}</span>مجموعه</span>
+                </h2>
+
+                <div class="">
+                    <table mat-table [dataSource]="groups$.getValue() " class="mat-elevation-z8">
+
+                        <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef class=" table-header"> الاسم </th>
+                            <td mat-cell *matCellDef="let element" [routerLink]="['/student','view',element._id]"> {{element.name}} </td>
+                        </ng-container>
+
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="phone">
+                            <th mat-header-cell *matHeaderCellDef class=" table-header"> المرحله</th>
+                            <td mat-cell *matCellDef="let element" [routerLink]="['/student','view',element._id]"> {{element.stage}} </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="gender">
+                            <th mat-header-cell *matHeaderCellDef class=" table-header"> نوع المجموعه </th>
+                            <td mat-cell *matCellDef="let element" [routerLink]="['/student','view',element._id]"> {{element.gender == 'Male' ? 'ذكر' : 'انثى' }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="appointment">
+                            <th mat-header-cell *matHeaderCellDef class=" table-header"> الميعاد</th>
+                            <td mat-cell *matCellDef="let element" [routerLink]="['/student','view',element._id]">
+                                <ng-container *ngFor="let appointment of element.appointments">
+                                    <p *ngIf="appointment.day == today">
+                                        <span>{{appointment.time}}</span>
+                                        <!-- <span>{{appointment.time}}</span> -->
+                                    </p>
+                                </ng-container>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns "></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="logoContainer">

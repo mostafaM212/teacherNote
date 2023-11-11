@@ -8,17 +8,18 @@ const userRoutes = require("./routes/user");
 const groupRoutes = require("./routes/group");
 const studentRoutes = require("./routes/student");
 const quizRoutes = require("./routes/quiz");
+const accountingRoutes = require("./routes/accounting");
 
 const studentAttendancesRoutes = require("./routes/student-attendance");
 
 mongoose
-  .connect("mongodb://localhost:27017/teacherNote")
-  .then((data) => {
-    console.log("test", "connected to database successfully");
-  })
-  .catch((e) => {
-    console.log("test", "failed to connect to database", e);
-  });
+    .connect("mongodb://localhost:27017/teacherNote")
+    .then((data) => {
+        console.log("test", "connected to database successfully");
+    })
+    .catch((e) => {
+        console.log("test", "failed to connect to database", e);
+    });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(angularCoreMiddleware);
@@ -30,8 +31,9 @@ app.use("/students", studentRoutes);
 app.use("/quiz", quizRoutes);
 
 app.use("/studentAttendances", studentAttendancesRoutes);
+app.use("/accounting", accountingRoutes);
 
 app.use((req, res, next) => {
-  res.send("hello from express");
+    res.send("hello from express");
 });
 module.exports = app;
