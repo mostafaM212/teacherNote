@@ -32,7 +32,7 @@ exports.addGroup = (req, res, next) => {
 
 exports.getGroups = (req, res, next) => {
   let day = +req.query.day;
-  console.log("test", req.query.day);
+  // console.log("test", req.query.day);
 
   let query = {};
   if (day) {
