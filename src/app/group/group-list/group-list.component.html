@@ -3,7 +3,7 @@
         <mat-form-field appearance="outline" class="example-full-width">
             <mat-label>اسم المجموعه</mat-label>
             <!-- <span matPrefix>+1 &nbsp;</span> -->
-            <input type="text" matInput placeholder="الاسم">
+            <input type="text" matInput placeholder="الاسم" (keydown)="onSearchGroup(search.value)" #search>
             <mat-icon matSuffix>search</mat-icon>
 
         </mat-form-field>

@@ -11,8 +11,8 @@
                     <mat-icon style="font-size: large; height: 20px;">event</mat-icon>
 
                 </div>
-                <span *ngIf="group$.getValue()?.gender == 'Male'"><mat-icon class="mat-18">group</mat-icon></span>
-                <span *ngIf="group$.getValue()?.gender == 'Female'"><mat-icon class="mat-18">face4</mat-icon></span>
+                <span *ngIf="group$.getValue()?.gender == 'Male'"><mat-icon class="mat-18">group {{students$.getValue().length +1}}</mat-icon></span>
+                <span *ngIf="group$.getValue()?.gender == 'Female'"><mat-icon class="mat-18">face4 {{students$.getValue().length +1}}</mat-icon></span>
 
             </mat-card-header>
             <mat-card-content class="group-list">
@@ -22,12 +22,12 @@
             <mat-card-actions class="card-actions">
                 <div class="flex1">
                     <!-- <span> {{group$.getValue()?.time}}</span> -->
-                    <mat-icon style="font-size: large; height: 20px;">timer</mat-icon>
-                    <span>{{group$.getValue()?.period}}</span>
+                    <mat-icon style="font-size: large; height: 20px;" color="warn">timer</mat-icon>
+                    <span> مده المجموعه {{group$.getValue()?.period}}</span>
 
                 </div>
                 <div class="">
-                    <button mat-icon-button matTooltip="تعديل هذه المجموعه" [routerLink]="['/group' , 'edit' , id]">
+                    <button mat-icon-button color="primary" matTooltip="تعديل هذه المجموعه" [routerLink]="['/group' , 'edit' , id]">
                     <mat-icon>edit</mat-icon>
                   </button>
                 </div>
@@ -120,7 +120,7 @@
                               <mat-icon color="primary">open_in_new</mat-icon>
                             </button>
 
-                                <button mat-icon-button color="warn" matTooltip="أضافه حضور" [disabled]="checkIfThereAttendanceToday(element.studentAttendances)" (click)=" onAddAttendance(element,i) " aria-label="Example icon button with a home icon ">
+                                <button mat-icon-button matTooltip="أضافه حضور" [disabled]="checkIfThereAttendanceToday(element.studentAttendances)" (click)=" onAddAttendance(element,i) " aria-label="Example icon button with a home icon ">
                               <mat-icon >add</mat-icon>
                             </button>
                                 <button mat-icon-button matTooltip="حذف هذا الطالب " (click)="onDeleteStudent(element._id) " aria-label="Example icon button with a open in new tab icon ">

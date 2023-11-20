@@ -50,6 +50,16 @@ export class StudentService {
       this.baseUrl + '/' + id
     );
   }
+  getStudentsLevel() {
+    return this.http.get<{ message: string; students: any[] }>(
+      this.baseUrl + '/level'
+    );
+  }
+  getStudentCount() {
+    return this.http.get<{ message: string; count: number }>(
+      this.baseUrl + '/count'
+    );
+  }
   deleteStudent(id: string) {
     return this.http.delete(this.baseUrl + '/' + id);
   }

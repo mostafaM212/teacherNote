@@ -16,9 +16,11 @@ export class GroupService {
   addGroup(data: any) {
     return this.http.post(this.baseUrl, data);
   }
-  getGroups(day?: number) {
+  getGroups(search?: string, day?: number) {
     let httpParams = new HttpParams();
     if (day) httpParams = httpParams.append('day', day);
+    if (search?.length) httpParams = httpParams.append('search', search);
+
     return this.http.get<{ message: string; groups: Group[] }>(this.baseUrl, {
       params: httpParams,
     });
@@ -29,6 +31,11 @@ export class GroupService {
   getGroup(id: string) {
     return this.http.get<{ message: string; group: Group }>(
       this.baseUrl + '/' + id
+    );
+  }
+  getGroupCount() {
+    return this.http.get<{ message: string; count: number }>(
+      this.baseUrl + '/count'
     );
   }
   deleteGroup(id: string) {

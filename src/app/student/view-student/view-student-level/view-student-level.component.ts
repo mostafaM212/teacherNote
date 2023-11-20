@@ -98,20 +98,40 @@ export class ViewStudentLevelComponent implements OnInit, OnDestroy {
       displayed.push([index + 1, quiz.percentage]);
       console.log('test', displayed, quiz.total, quiz.percentage);
     });
-    let newOptions = this.chartOption;
-
-    newOptions.series = [
-      {
-        smooth: true,
-        data: [...displayed],
-        tooltip: {
-          show: true,
-          showDelay: 10,
-        },
-        type: 'line',
+    this.chartOption = {
+      xAxis: {
+        type: 'value',
+        name: 'رقم ',
       },
-    ];
-    this.chartOption = { ...newOptions };
+      // tooltip: {
+      //   trigger: 'axis',
+      //   axisPointer: {
+      //     type: 'line',
+      //   },
+      //   formatter: (params: any, index) => {
+      //     console.log('test', params, index);
+
+      //     return (
+      //       'درجات الطالب' +
+      //       params[0].value[1] * 100 +
+      //       '<br/>' +
+      //       'رقم الامتحان' +
+      //       params[0].value[0]
+      //     );
+      //   },
+      // },
+      yAxis: {
+        type: 'value',
+        name: 'درجات الطالب',
+      },
+      series: [
+        {
+          smooth: true,
+          data: [...displayed],
+          type: 'line',
+        },
+      ],
+    };
   }
   onDeleteQuiz(id: string) {
     if (confirm('هل تريد حذف هذا الاختبار')) {

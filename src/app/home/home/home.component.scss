@@ -104,3 +104,24 @@ mat-form-field {
 .mat-mdc-card-header {
   padding: 0px;
 }
+
+.table-header {
+  background-color: #ccc;
+}
+
+// td:hover {
+//   background-color: whitesmoke;
+//   cursor: pointer;
+// }
+tr[mat-header-row] {
+  background-color: whitesmoke;
+}
+
+tr[mat-row]:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+table {
+  border-radius: 10px;
+}

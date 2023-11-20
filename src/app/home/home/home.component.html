@@ -47,8 +47,16 @@
             </div>
         </div>
         <div class="logoContainer">
-            <img src="../../../assets//images/49065346.jpg" class="img" alt="" srcset="">
+            <div class="" *ngIf="showChart">
+                <div class="button-groups">
+                    <button (click)="theme = ''" mat-button nz-button nzType="default">default</button>
+                    <button (click)="theme = 'dark'" mat-button nz-button nzType="default">dark</button>
+                    <button (click)="theme = 'macarons'" mat-button nz-button nzType="default">macarons(theme file)</button>
+                    <button (click)="theme = coolTheme" mat-button nz-button nzType="default">cool(theme object)</button>
+                </div>
+                <div echarts [options]="options" [theme]="theme" class="demo-chart"></div>
+            </div>
+            <img *ngIf="!showChart" src="../../../assets//images/49065346.jpg" class="img" alt="" srcset="">
         </div>
     </div>
-
 </div>

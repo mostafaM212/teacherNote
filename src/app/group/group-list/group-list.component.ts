@@ -17,9 +17,12 @@ export class GroupListComponent implements OnInit, OnDestroy {
     this.getGroups();
   }
 
-  getGroups() {
+  onSearchGroup(value: string) {
+    this.getGroups(value);
+  }
+  getGroups(value?: string) {
     this.groupService
-      .getGroups()
+      .getGroups(value)
       .pipe(
         tap((data) => {
           this.groups$.next(data.groups);

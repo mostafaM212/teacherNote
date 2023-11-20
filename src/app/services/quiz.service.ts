@@ -19,6 +19,11 @@ export class QuizService {
       Quiz: Quiz;
     }>(this.baseUrl, data);
   }
+  getStudentsLevel() {
+    return this.http.get<{ message: string; level: any }>(
+      this.baseUrl + '/level'
+    );
+  }
   addQuizForAllStudents(data: any) {
     return this.http.post<{
       message: string;

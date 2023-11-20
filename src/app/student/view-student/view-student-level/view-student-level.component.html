@@ -1,23 +1,23 @@
 <div class="container">
     <div class="dataContainer">
-        <div class="dataContainer" style="align-items: start;">
-            <div class="data text">
-                <mat-icon class="brawn">person</mat-icon>{{student$.getValue()?.name}}
-            </div>
-            <div class="data h1">
-                <mat-icon class="brawn">payments</mat-icon>{{student$.getValue()?.paymentMethod == 'monthly' ? 'شهريا' : 'كل حصه'}}
-            </div>
-            <div class="data h1">
-                <mat-icon class="brawn">phone</mat-icon>{{student$.getValue()?.phone}}
-            </div>
-            <div class="data h1">
-                <mat-icon class="brawn">list</mat-icon>{{student$.getValue()?.group.stage}}
-            </div>
-            <div class="data h1" *ngIf="studentLevel && quizzes$.getValue().length">
-                <mat-icon [ngStyle]="{color : studentLevel.color}">show_chart</mat-icon>
-                <p [ngStyle]="{color : studentLevel.color}" class="text">{{studentLevel.name}}</p>
-            </div>
+
+        <div class="data text">
+            <mat-icon class="brawn">person</mat-icon>{{student$.getValue()?.name}}
         </div>
+        <div class="data h1">
+            <mat-icon class="brawn">payments</mat-icon>{{student$.getValue()?.paymentMethod == 'monthly' ? 'شهريا' : 'كل حصه'}}
+        </div>
+        <div class="data h1">
+            <mat-icon class="brawn">phone</mat-icon>{{student$.getValue()?.phone}}
+        </div>
+        <div class="data h1">
+            <mat-icon class="brawn">list</mat-icon>{{student$.getValue()?.group.stage}}
+        </div>
+        <div class="data h1" *ngIf="studentLevel && quizzes$.getValue().length">
+            <mat-icon [ngStyle]="{color : studentLevel.color}">show_chart</mat-icon>
+            <p [ngStyle]="{color : studentLevel.color}" class="text">{{studentLevel.name}}</p>
+        </div>
+
     </div>
     <div class="chartContainer">
         <div echarts [options]="chartOption" class="demo-chart" *ngIf="quizzes$.getValue().length"></div>

@@ -6,7 +6,8 @@ const studentController = require("../controllers/student.controller");
 const authMiddleware = require("../middlewares/auth.middleware");
 
 router.get("", studentController.getStudents);
-
+router.get("/level", studentController.getAllStudentLevel);
+router.get("/count", studentController.getAllStudentCount);
 router.post(
   "",
   authMiddleware,

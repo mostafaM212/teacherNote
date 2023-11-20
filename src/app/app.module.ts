@@ -11,6 +11,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +22,10 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     BrowserAnimationsModule,
     AngularMaterialModule,
     HomeModule,
+
+    NgxEchartsModule.forRoot({
+      echarts,
+    }),
     NgxToastNotifyModule.forRoot({
       toastTimeoutInSeconds: 2,
       animationDelayInMilliSeconds: 500,

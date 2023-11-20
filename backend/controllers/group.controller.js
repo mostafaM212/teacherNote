@@ -32,12 +32,20 @@ exports.addGroup = (req, res, next) => {
 
 exports.getGroups = (req, res, next) => {
   let day = +req.query.day;
+  let search = req.query.search;
+
   // console.log("test", req.query.day);
+  // console.log("test", req.query, "sds", search);
 
   let query = {};
+  if (search) {
+    query = { name: { $regex: req.query.search, $options: "i" } };
+  }
   if (day) {
     query = { "appointments.day": day };
   }
+  console.log("test", query);
+
   Group.find(query)
     .then((data) => {
       res.status(200).json({
@@ -48,6 +56,22 @@ exports.getGroups = (req, res, next) => {
     .catch((e) => {
       res.status(500).json({
         message: "Error on Saving Group",
+      });
+    });
+};
+exports.getAllGroupCount = (req, res, next) => {
+  Group.count()
+    .then((data) => {
+      res.status(200).json({
+        message: "Student created Successfully!",
+        count: data,
+      });
+    })
+    .catch((e) => {
+      console.log("test", e);
+
+      res.status(500).json({
+        message: "Error on Saving Student",
       });
     });
 };

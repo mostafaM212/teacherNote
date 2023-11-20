@@ -65,6 +65,36 @@ exports.getQuizs = (req, res, next) => {
       });
     });
 };
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+exports.getAllStudentLevel = (req, res, next) => {
+  Quiz.aggregate([
+    {
+      $group: {
+        totalLevel: { $sum: "$percentage" },
+        count: { $sum: 1 },
+        _id: null,
+      },
+    },
+  ])
+    .then((data) => {
+      res.status(200).json({
+        message: "Student created Successfully!",
+        level: data[0],
+      });
+    })
+    .catch((e) => {
+      console.log("test", e);
+
+      res.status(500).json({
+        message: "Error on Saving Student",
+      });
+    });
+};
 exports.getQuizsById = (req, res, next) => {
   console.log("test", req.params.id);
 

@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const GroupSchema = mongoose.Schema(
   {
     name: { required: true, type: String },
-
     appointments: [
       {
         day: { required: true, type: Number },

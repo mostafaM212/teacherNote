@@ -8,11 +8,13 @@ import { authMatchGuard } from './guards/auth-match.guard';
 const routes: Routes = [
   {
     path: 'auth',
+
     // canActivate: [notAuthGuard],
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'home',
+    pathMatch: 'prefix',
     canActivate: [authGuard],
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },

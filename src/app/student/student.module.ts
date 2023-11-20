@@ -25,9 +25,7 @@ import * as echarts from 'echarts';
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxEchartsModule.forRoot({
-      echarts,
-    }),
+    NgxEchartsModule.forChild(),
   ],
 })
 export class StudentModule {}

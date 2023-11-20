@@ -7,7 +7,7 @@ const authMiddleware = require("../middlewares/auth.middleware");
 
 // const validationErrorMiddleware = require("../middleware/validationError.middleware");
 router.get("", groupController.getGroups);
-
+router.get("/count", groupController.getAllGroupCount);
 router.post(
   "",
   authMiddleware,

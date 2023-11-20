@@ -1,3 +1,4 @@
+import { Quiz } from './Quiz';
 import { StudentAttendance } from './StudentAttendance';
 
 export interface Student {
@@ -8,6 +9,7 @@ export interface Student {
   gender: string;
   price: number;
   group?: any;
+  quiz?: Quiz[];
   studentAttendances: any[];
   paymentMethod: string;
 }

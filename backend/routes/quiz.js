@@ -6,7 +6,7 @@ const QuizController = require("../controllers/quiz.controller");
 const authMiddleware = require("../middlewares/auth.middleware");
 
 router.get("", QuizController.getQuizs);
-
+router.get("/level", QuizController.getAllStudentLevel);
 router.post(
   "",
   authMiddleware,

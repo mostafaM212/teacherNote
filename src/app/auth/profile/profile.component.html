@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="dataContainer">
+        <div class="data text">
+            <mat-icon class="brawn">person</mat-icon>{{user$.getValue()?.name}}
+        </div>
+        <div class="data h1">
+            <mat-icon class="brawn">payments</mat-icon>{{user$.getValue()?.email}}
+        </div>
+        <div class="data h1">
+            <mat-icon class="brawn">phone</mat-icon>{{user$.getValue()?.phone}}
+        </div>
+        <div class="data h1">
+            <span style="font-weight: bold;" class="brawn"> عدد المجموعات :</span> <span style="color: green;">{{groupCount}}</span>
+        </div>
+        <div class="data h1">
+            <span style="font-weight: bold;" class="brawn">  عدد الطلاب :</span> <span style="color: green;">{{studentCount}}</span>
+        </div>
+    </div>
+    <div class="dataContainer">
+        <div class="dataContainer imgContainer">
+            <img [src]="user$.getValue()?.photo" alt="" srcset="">
+        </div>
+
+    </div>
+</div>

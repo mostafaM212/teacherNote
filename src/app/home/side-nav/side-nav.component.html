@@ -1,7 +1,13 @@
 <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="over">
         <div class="example-sidenav">
-            <img src="../../../assets/logos/دفتر الاستاذ-logos_transparent1.png" style="width: 70px;height: 70px;" srcset="">
+            <img src="../../../assets/logos/دفتر الاستاذ-logos_transparent1.png" style="width: 80px;height: 80px;" srcset="">
+        </div>
+        <div class="flex">
+            <button mat-button class="nav-button" [routerLink]="['home','calender']" routerLinkActive="active">
+          <mat-icon>event</mat-icon>
+          <span>التقويم الاسبوعى</span>
+        </button>
         </div>
         <div class="flex">
             <button mat-button class="nav-button" [routerLink]="['group']" routerLinkActive="active">
@@ -11,8 +17,8 @@
         </div>
         <div class="flex">
             <button mat-button class="nav-button" [routerLink]="['/student' ]" routerLinkActive="active">
-          <mat-icon>person</mat-icon>
-          <span>كل الطلاب</span>
+          <mat-icon>group</mat-icon>
+          <span> الطلاب</span>
         </button>
         </div>
         <div class="flex">

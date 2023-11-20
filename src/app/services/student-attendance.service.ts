@@ -55,6 +55,7 @@ export class StudentAttendanceService {
       StudentAttendance: StudentAttendance;
     }>(this.baseUrl + '/' + id);
   }
+
   deleteStudentAttendance(id: string) {
     return this.http.delete(this.baseUrl + '/' + id);
   }
